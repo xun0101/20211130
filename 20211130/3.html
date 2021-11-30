@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .none{
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <number v-for="text in h" :text="text"></number>
+    <number text=":"></number>
+    <number v-for="text in m" :text="text"></number>
+    <number text=":"></number>
+    <number v-for="text in s" :text="text"></number>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <script type="text/x-template" id="number">
+    <svg version="1.1" class="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="322px" height="602px" viewBox="0 0 322 602" enable-background="new 0 0 322 602" xml:space="preserve">
+<circle class="i" :class="{ none: !isNaN(parseInt(text))}" fill="#00A0E9" stroke="#231815" stroke-miterlimit="10" cx="161.341" cy="390.611" r="35"/>
+<circle class="h" :class="{ none:  !isNaN(parseInt(text))}" fill="#00A0E9" stroke="#231815" stroke-miterlimit="10" cx="158.797" cy="131.851" r="35"/>
+<rect class="g" :class="{ none: [':','1','4','7'].includes(text)}" x="45.166" y="490.47" fill="#00A0E9" stroke="#231815" stroke-miterlimit="10" width="248" height="25"/>
+<rect class="f" :class="{ none: [':','2'].includes(text)}" x="307" y="267.455" fill="#00A0E9" stroke="#231815" stroke-miterlimit="10" width="25" height="218.473"/>
+<rect class="e" :class="{ none: [':','1','3','4','5','7','9'].includes(text)}" y="267.457" fill="#00A0E9" stroke="#231815" stroke-miterlimit="10" width="25" height="235.512"/>
+<rect class="d" :class="{ none: [':','0','1','7'].includes(text)}" x="45.166" y="248" fill="#00A0E9" stroke="#231815" stroke-miterlimit="10" width="248" height="25"/>
+<rect class="c" :class="{ none: [':','5','6'].includes(text)}" x="307" y="17.245" fill="#00A0E9" stroke="#231815" stroke-miterlimit="10" width="25" height="229.213"/>
+<rect class="b" :class="{ none: [':','1','2','3','7'].includes(text)}" x="0.002" y="25.001" fill="#00A0E9" stroke="#231815" stroke-miterlimit="10" width="25" height="222.999"/>
+<rect class="a" :class="{ none: [':','1','4'].includes(text)}" x="40.166" fill="#00A0E9" stroke="#231815" stroke-miterlimit="10" width="248" height="25"/>
+</svg>
+  </script>
+  <script>
+    Vue.component('number',{
+      template:'#number',
+      props:{
+        text:{
+          type:String,
+          default:''
+        }
+      }
+    })
+    new Vue({
+      el:'#app',
+      data () {
+        return{
+          h:'',
+          m:'',
+          s:'',
+          timer:0
+        }
+      },
+      methods: {
+        update () {
+          const date = new Date()
+          this.h = date.getHours().toString().padStart(2,'0')
+          this.m = date.getMinutes().toString().padStart(2,'0')
+          this.s = date.getSeconds().toString().padStart(2,'0')
+        }
+      },
+      created () {
+          this.timer = setInterval(this.update, 1000)
+          this.update()
+        },
+        destoryed(){
+          clearInterval(this.time)
+        }
+    })
+  </script>
+</body>
+</html>
